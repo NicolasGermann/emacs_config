@@ -42,7 +42,7 @@
   :ensure t
   :config
   (setq x-underline-at-descent-line t)
-  (setq moody-mode-line-height 30)
+  (setq moody-mode-line-height 25)
   (moody-replace-mode-line-buffer-identification)
   (moody-replace-eldoc-minibuffer-message-function)
   (moody-replace-vc-mode)

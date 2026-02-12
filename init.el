@@ -135,16 +135,26 @@
   :ensure t
   :bind ("C-c g" . magit-status))
 
+(setq org-directory "~/org")
+
+(setq org-agenda-files '("~/org"))
+
 (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-           "* TODO %?\n  %U")
-          ("n" "Leere Notiz (Datum)" entry 
-           (file+datetree "~/org/notes.org") 
-           "* %?\n  Erstellt am: %U")))
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+         "* TODO %?\n  %U")
+        
+        ("n" "Leere Notiz (Datum)" entry 
+         ;; Wir nutzen hier eine Funktion (file+function), 
+         ;; um den dynamischen Pfad zu berechnen
+         (file (lambda () 
+                 (let ((name (format-time-string "note-%Y-%m-%d--%H-%M-%S.org")))
+                   (expand-file-name name "~/org"))))
+         "* %?\n  Erstellt am: %U")))
 
 (setq display-buffer-alist
-      '((".*" (display-buffer-same-window)
-         (re-search . t))))
+      '((".*" ;; Gilt für alle Buffer-Namen (Regex)
+         (display-buffer-same-window)
+         (inhibit-same-window . nil))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

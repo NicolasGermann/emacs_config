@@ -16,14 +16,14 @@
 
 (set-fringe-mode 10)
 
-(set-face-attribute 'mode-line nil :height 180)
+(set-face-attribute 'mode-line nil :height 160)
 
 (setq-default line-spacing 0.12)
 
 (set-face-attribute 'default nil :font "SF Mono Terminal" :height 180)
 
 (setq inhibit-startup-screen t)    ; Begrüßung deaktivieren
-(setq initial-scratch-message "") ; Scratch-Buffer komplett leeren
+(setq initial-scratch-message ";;Willkommen") ; Scratch-Buffer komplett leeren
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -47,6 +47,11 @@
   (moody-replace-eldoc-minibuffer-message-function)
   (moody-replace-vc-mode)
   )
+
+(use-package minions
+  :ensure t
+  :config
+  (minions-mode 1))
 
 (use-package avy
   :ensure t
@@ -130,6 +135,17 @@
   :ensure t
   :bind ("C-c g" . magit-status))
 
+(setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+           "* TODO %?\n  %U")
+          ("n" "Leere Notiz (Datum)" entry 
+           (file+datetree "~/org/notes.org") 
+           "* %?\n  Erstellt am: %U")))
+
+(setq display-buffer-alist
+      '((".*" (display-buffer-same-window)
+         (re-search . t))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,8 +156,9 @@
      default))
  '(package-selected-packages
    '(all-the-icons avy corfu corfu-terminal doom doom-themes kind-icon
-		   magit marginalia modus-themes moody orderless
-		   org-appear org-appearance org-modern vertico)))
+		   magit marginalia minions modus-themes moody
+		   orderless org-appear org-appearance org-modern
+		   vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

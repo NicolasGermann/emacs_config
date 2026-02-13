@@ -151,10 +151,6 @@
                    (expand-file-name name "~/org"))))
          "* %?\n  Erstellt am: %U")))
 
-(setq display-buffer-alist
-      '((".*" ;; Gilt für alle Buffer-Namen (Regex)
-         (display-buffer-same-window)
-         (inhibit-same-window . nil))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

@@ -151,6 +151,21 @@
                    (expand-file-name name "~/org"))))
          "* %?\n  Erstellt am: %U")))
 
+(use-package evil
+  :ensure t
+  :init
+  ;; Wichtige Einstellungen, bevor Evil geladen wird
+  (setq evil-want-integration t) 
+  (setq evil-want-keybinding nil) ;; Erforderlich für evil-collection
+  (setq evil-want-C-u-scroll t)   ;; Erlaubt Scrollen mit C-u wie in Vim
+  :config
+  (evil-mode 0))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -161,10 +176,10 @@
    '("0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
      default))
  '(package-selected-packages
-   '(all-the-icons avy corfu corfu-terminal doom doom-themes kind-icon
-		   magit marginalia minions modus-themes moody
-		   orderless org-appear org-appearance org-modern
-		   vertico)))
+   '(all-the-icons avy corfu corfu-terminal doom doom-themes evil
+		   evil-collection kind-icon magit marginalia minions
+		   modus-themes moody orderless org-appear
+		   org-appearance org-modern vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

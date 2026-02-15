@@ -5,6 +5,9 @@
 (keymap-global-set "M-9" (lambda () (interactive) (insert "}")))
 (keymap-global-set "M-L" (lambda () (interactive) (insert "@")))
 
+(with-eval-after-load 'doc-view
+  (setq doc-view-resolution 300))
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

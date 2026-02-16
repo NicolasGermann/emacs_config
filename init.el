@@ -7,6 +7,7 @@
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
+(add-hook 'doc-view-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)

@@ -4,6 +4,7 @@
 (keymap-global-set "M-8" (lambda () (interactive) (insert "{")))
 (keymap-global-set "M-9" (lambda () (interactive) (insert "}")))
 (keymap-global-set "M-L" (lambda () (interactive) (insert "@")))
+(keymap-global-set "M-n" (lambda () (interactive) (insert "~")))
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
@@ -126,7 +127,7 @@
    '(org-level-3 ((t (:inherit outline-3 :height 1.1 :weight bold))))
    '(org-document-title ((t (:height 1.7 :weight bold :underline t)))))
   :bind (("C-c a" . org-agenda)
-	 ("C-c n" . org-capture)
+	 ("C-c c" . org-capture)
 	 ))
 
 (use-package org-modern
@@ -141,19 +142,27 @@
 
 (setq org-directory "~/org")
 
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("~/org/"))
+
+(setq org-default-notes-file "~/org/inbox.org")
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-         "* TODO %?\n  %U")
-        
-        ("n" "Leere Notiz (Datum)" entry 
-         ;; Wir nutzen hier eine Funktion (file+function), 
-         ;; um den dynamischen Pfad zu berechnen
-         (file (lambda () 
-                 (let ((name (format-time-string "note-%Y-%m-%d--%H-%M-%S.org")))
-                   (expand-file-name name "~/org"))))
-         "* %?\n  Erstellt am: %U")))
+      '(
+        ("t" "Todo" entry (file+headline "~/org/inbox.org" "Aufgaben")
+         "* TODO %?\n  %i\n  %a")
+
+        ("n" "Notiz" entry (file+headline "~/org/inbox.org" "Notizen")
+         "* %? :NOTE:\n  %U\n  %a")
+       ))
+
+(setq org-refile-targets
+      '((org-agenda-files . (:maxlevel . 3))))
+
+(setq org-refile-use-outline-path 'file)
+
+(setq org-outline-path-complete-in-steps nil)
+
+(setq org-refile-allow-creating-parent-nodes 'confirm)
 
 (use-package evil
   :ensure t

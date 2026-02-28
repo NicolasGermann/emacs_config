@@ -108,7 +108,10 @@
   :ensure t
   :after corfu
   :custom
+  (kind-icon-use-icons nil)
   (kind-icon-default-face 'corfu-default) ; Passt sich deinem Theme an
+  (kind-icon-blend-background t)         ; Das ist der entscheidende Schalter
+  (kind-icon-blend-fraction 0.00)
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
@@ -117,6 +120,11 @@
   :unless (display-graphic-p)
   :config
   (corfu-terminal-mode 1))
+
+(use-package eglot
+  :ensure nil
+  :bind
+  (("C-x c" . eglot-code-actions)))
 
 (use-package org
   :ensure nil
@@ -190,9 +198,11 @@
      default))
  '(package-selected-packages
    '(all-the-icons avy corfu corfu-terminal doom doom-themes evil
-		   evil-collection kind-icon magit marginalia minions
+		   evil-collection evil-goggles flycheck-inline
+		   flymake-inline kind-icon magit marginalia minions
 		   modus-themes moody orderless org-appear
-		   org-appearance org-modern vertico)))
+		   org-appearance org-modern pdfgrep sideline-flymake
+		   vertico volatile-highlights)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -65,7 +65,11 @@
   :custom-face
   (avy-lead-face ((t (:background unspecified :foreground "#ff0000" :weight bold :underline t))))
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))
+  :config
+  (define-key evil-normal-state-map (kbd "gw") 'avy-goto-word-0)
   )
+
+
 
 (use-package all-the-icons
   :ensure t

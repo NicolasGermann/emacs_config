@@ -1,6 +1,7 @@
 (keymap-global-set "M-5" (lambda () (interactive) (insert "[")))
 (keymap-global-set "M-6" (lambda () (interactive) (insert "]")))
 (keymap-global-set "M-7" (lambda () (interactive) (insert "|")))
+(keymap-global-set "M-/" (lambda () (interactive) (insert "\\")))
 (keymap-global-set "M-8" (lambda () (interactive) (insert "{")))
 (keymap-global-set "M-9" (lambda () (interactive) (insert "}")))
 (keymap-global-set "M-L" (lambda () (interactive) (insert "@")))

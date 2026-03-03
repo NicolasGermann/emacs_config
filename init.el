@@ -38,11 +38,16 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-one t)
+  ;;(load-theme 'doom-one t)
   ;; Korrekte Farben für die Modeline und andere Pakete aktivieren
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
+
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-everforest t))
 
 (use-package moody
   :ensure t
@@ -68,8 +73,6 @@
   :config
   (define-key evil-normal-state-map (kbd "gw") 'avy-goto-word-0)
   )
-
-
 
 (use-package all-the-icons
   :ensure t
@@ -105,7 +108,6 @@
   (corfu-auto-prefix 2)          ; Startet nach 2 getippten Zeichen
   (corfu-auto-delay 0.1)         ; Wie schnell das Popup erscheint
   (corfu-quit-at-boundary 'separator) ; Beendet Corfu bei Leerzeichen
-  
   :init
   (global-corfu-mode))
 
@@ -199,11 +201,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
+   '("9777774c632c27aafcd20e969626f87177e3d3ff526badd4bec90b33ed3ab73b"
+     "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
      default))
  '(package-selected-packages
-   '(all-the-icons avy corfu corfu-terminal doom doom-themes evil
-		   evil-collection evil-goggles flycheck-inline
+   '(all-the-icons avy base16-theme corfu corfu-terminal doom doom-themes
+		   evil evil-collection evil-goggles flycheck-inline
 		   flymake-inline kind-icon magit marginalia minions
 		   modus-themes moody orderless org-appear
 		   org-appearance org-modern pdfgrep sideline-flymake

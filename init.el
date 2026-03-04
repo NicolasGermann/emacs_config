@@ -49,6 +49,11 @@
   :config
   (load-theme 'base16-everforest t))
 
+(use-package golden-ratio
+  :ensure t
+  :init
+  (golden-ratio-mode 1))
+
 (use-package moody
   :ensure t
   :config
@@ -195,6 +200,24 @@
   :config
   (evil-collection-init))
 
+(use-package general
+  :ensure t
+  :config
+  ;; Erstellt einen Definer für die Leertaste im Normal Mode
+  (general-create-definer my-ctrl-space-loader
+    :states 'normal
+    :prefix "SPC")
+
+  (my-ctrl-space-loader
+    "x" (general-simulate-key "C-x")
+    "c" (general-simulate-key "C-c")
+    "u" (general-simulate-key "C-u")
+    "h" (general-simulate-key "C-h")
+    "a" (general-simulate-key "C-a")
+    "e" (general-simulate-key "C-e")
+    "s" (general-simulate-key "C-s")) ; zum Suchen z.B.
+)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -207,10 +230,11 @@
  '(package-selected-packages
    '(all-the-icons avy base16-theme corfu corfu-terminal doom doom-themes
 		   evil evil-collection evil-goggles flycheck-inline
-		   flymake-inline kind-icon magit marginalia minions
-		   modus-themes moody orderless org-appear
-		   org-appearance org-modern pdfgrep sideline-flymake
-		   vertico volatile-highlights)))
+		   flymake-inline general golden-ratio kind-icon magit
+		   marginalia minions modus-themes moody orderless
+		   org-appear org-appearance org-modern pdfgrep
+		   sideline-flymake vertico volatile-highlights
+		   zig-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

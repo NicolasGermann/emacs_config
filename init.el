@@ -71,7 +71,7 @@
 
 (use-package avy
   :ensure t
-  :bind ("M-g w" . avy-goto-word-0)
+  :bind ("C-ö" . avy-goto-word-0)
   :custom-face
   (avy-lead-face ((t (:background unspecified :foreground "#ff0000" :weight bold :underline t))))
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))

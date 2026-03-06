@@ -16,7 +16,7 @@
 (scroll-bar-mode -1)
 (which-key-mode)
 
-(global-display-line-numbers-mode t)
+(global-display-line-numbers-mode 0)
 
 (global-hl-line-mode t)
 
@@ -77,6 +77,9 @@
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))
   :config
   (define-key evil-normal-state-map (kbd "gw") 'avy-goto-word-0)
+  (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
+  (define-key evil-visual-state-map (kbd "C-SPC") 'evil-normal-state)
+  (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
   )
 
 (use-package all-the-icons

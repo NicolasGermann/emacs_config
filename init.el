@@ -7,6 +7,8 @@
 (keymap-global-set "M-L" (lambda () (interactive) (insert "@")))
 (keymap-global-set "M-n" (lambda () (interactive) (insert "~")))
 
+(setq ns-command-modifier 'meta)
+
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
 (add-hook 'doc-view-mode-hook (lambda () (display-line-numbers-mode -1)))

@@ -73,7 +73,7 @@
 
 (use-package avy
   :ensure t
-  :bind ("C-ö" . avy-goto-word-0)
+  :bind ("C-ö" . avy-goto-word-1)
   :custom-face
   (avy-lead-face ((t (:background unspecified :foreground "#ff0000" :weight bold :underline t))))
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))
@@ -173,9 +173,6 @@
 
 (setq org-capture-templates
       '(
-        ("t" "Todo" entry (file+headline "~/org/inbox.org" "Aufgaben")
-         "* TODO %?\n  %i\n  %a")
-
         ("n" "Notiz" entry (file+headline "~/org/inbox.org" "Notizen")
          "* %? :NOTE:\n  %U\n  %a")
        ))

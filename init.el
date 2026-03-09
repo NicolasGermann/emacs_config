@@ -18,11 +18,11 @@
 (scroll-bar-mode -1)
 (which-key-mode)
 
-(global-display-line-numbers-mode 0)
+(global-display-line-numbers-mode 1)
 
 (global-hl-line-mode t)
 
-(set-fringe-mode 10)
+(set-fringe-mode 0)
 
 (set-face-attribute 'mode-line nil :height 160)
 
@@ -32,6 +32,13 @@
 
 (setq inhibit-startup-screen t)    ; Begrüßung deaktivieren
 (setq initial-scratch-message ";;Willkommen") ; Scratch-Buffer komplett leeren
+
+(set-face-attribute 'line-number nil 
+                    :height 0.8    ; 80% der normalen Textgröße
+                    :slant 'normal)
+(set-face-attribute 'line-number-current-line nil 
+                    :height 1.0
+                    :weight 'bold)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -214,11 +221,11 @@
  '(package-selected-packages
    '(all-the-icons avy base16-theme corfu corfu-terminal doom doom-themes
 		   evil evil-collection evil-goggles flycheck-inline
-		   flymake-inline general golden-ratio kind-icon magit
-		   marginalia minions modus-themes moody orderless
-		   org-appear org-appearance org-modern pdfgrep
-		   sideline-flymake vertico volatile-highlights
-		   zig-mode)))
+		   flymake-inline general god-mode golden-ratio
+		   kind-icon magit marginalia minions modus-themes
+		   moody orderless org-appear org-appearance
+		   org-modern pdfgrep sideline-flymake vertico
+		   volatile-highlights zig-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

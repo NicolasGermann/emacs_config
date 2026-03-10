@@ -37,23 +37,25 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (package-initialize)
 
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-one t)
-  ;; Korrekte Farben für die Modeline und andere Pakete aktivieren
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-org-config))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package doom-themes					      ;;
+;;   :ensure t							      ;;
+;;   :config							      ;;
+;;   (load-theme 'doom-one t)					      ;;
+;;   ;; Korrekte Farben für die Modeline und andere Pakete aktivieren ;;
+;;   (doom-themes-visual-bell-config)				      ;;
+;;   (doom-themes-neotree-config)				      ;;
+;;   (doom-themes-org-config))					      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package base16-theme	        ;;
-;;   :ensure t			        ;;
-;;   :config			        ;;
-;;   (load-theme 'base16-everforest 0)) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package base16-theme	    
+  :ensure t			    
+  :config			    
+  (load-theme 'base16-everforest 0))
 
 (use-package golden-ratio
   :ensure t
@@ -81,11 +83,6 @@
   :custom-face
   (avy-lead-face ((t (:background unspecified :foreground "#ff0000" :weight bold :underline t))))
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))
-  :config
-  (define-key evil-normal-state-map (kbd "gw") 'avy-goto-word-0)
-  (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
-  (define-key evil-visual-state-map (kbd "C-SPC") 'evil-normal-state)
-  (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
   )
 
 (use-package all-the-icons
@@ -190,52 +187,56 @@
 
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 
-(use-package evil
-  :ensure t
-  :init
-  ;; Wichtige Einstellungen, bevor Evil geladen wird
-  (setq evil-want-integration t) 
-  (setq evil-want-keybinding nil) ;; Erforderlich für evil-collection
-  (setq evil-want-C-u-scroll t)   ;; Erlaubt Scrollen mit C-u wie in Vim
-  :config
-  (evil-mode 0))
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
 (set-face-attribute 'line-number nil 
                     :height 0.8    ; 80% der normalen Textgröße
                     :slant 'normal)
 (set-face-attribute 'line-number-current-line nil 
-                    :height 1.0
+                    :height 0.8
                     :weight 'bold)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("9777774c632c27aafcd20e969626f87177e3d3ff526badd4bec90b33ed3ab73b"
-     "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
-     default))
- '(package-selected-packages
-   '(all-the-icons avy base16-theme corfu corfu-terminal doom doom-themes
-		   evil evil-collection evil-goggles flycheck-inline
-		   flymake-inline general god-mode golden-ratio
-		   kind-icon magit marginalia minions modus-themes
-		   moody orderless org-appear org-appearance
-		   org-modern pdfgrep sideline-flymake vertico
-		   volatile-highlights zig-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-document-title ((t (:height 1.7 :weight bold :underline t))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.5 :weight bold))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.3 :weight bold))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.1 :weight bold)))))
+(use-package lsp-mode
+  :ensure t
+  :init
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-diagnostics-disabled-modes '(company-mode))
+  (lsp-completion-provider :capf)
+  :init
+  ;; Definiere einen Präfix-Key für alle LSP-Kommandos. 
+  ;; "C-c l" ist sehr beliebt und kollidiert selten mit anderen Bindings.
+  (setq lsp-keymap-prefix "C-c l")
+  
+  :hook (
+         (lsp-mode . lsp-enable-which-key-integration)
+	 (lsp-mode . lsp-ui-mode)
+         )
+         
+  :commands lsp)
+
+(use-package flycheck
+  :ensure t
+  :init)
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :custom
+  ;; --- Documentation (Hover) ---
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'at-point) ;; Popup erscheint direkt beim Cursor
+  (lsp-ui-doc-border (face-foreground 'default))
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-delay 3)
+  
+  ;; --- Sideline (Infos am rechten Rand) ---
+  (lsp-ui-sideline-enable t)
+  (lsp-ui-sideline-show-diagnostics t)      ;; Nur Diagnostics (Errors/Warnings)
+  (lsp-ui-sideline-update-mode 'line)        ; Zeigt Fehler der ganzen Zeile
+  (lsp-ui-sideline-diagnostic-max-lines 3)   ; Begrenzt die Höhe am Rand
+  
+  ;; --- Peek (Definitionen im Overlay öffnen) ---
+  ;; Erlaubt es, Definitionen zu sehen, ohne die aktuelle Datei zu verlassen
+  (lsp-ui-peek-enable t)
+  (lsp-ui-peek-always-show t))

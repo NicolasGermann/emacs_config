@@ -194,49 +194,8 @@
                     :height 0.8
                     :weight 'bold)
 
-(use-package lsp-mode
+(use-package eldoc-box
   :ensure t
   :init
-  :custom
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-diagnostics-disabled-modes '(company-mode))
-  (lsp-completion-provider :capf)
-  :init
-  ;; Definiere einen Präfix-Key für alle LSP-Kommandos. 
-  ;; "C-c l" ist sehr beliebt und kollidiert selten mit anderen Bindings.
-  (setq lsp-keymap-prefix "C-c l")
-  
-  :hook (
-         (lsp-mode . lsp-enable-which-key-integration)
-	 (lsp-mode . lsp-ui-mode)
-         )
-         
-  :commands lsp)
-
-(use-package flycheck
-  :ensure t
-  :init)
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :custom
-  ;; --- Documentation (Hover) ---
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-include-signature t)
-  (lsp-ui-doc-position 'at-point) ;; Popup erscheint direkt beim Cursor
-  (lsp-ui-doc-border (face-foreground 'default))
-  (lsp-ui-doc-show-with-cursor t)
-  (lsp-ui-doc-delay 3)
-  
-  ;; --- Sideline (Infos am rechten Rand) ---
-  (lsp-ui-sideline-enable t)
-  (lsp-ui-sideline-show-diagnostics t)      ;; Nur Diagnostics (Errors/Warnings)
-  (lsp-ui-sideline-update-mode 'line)        ; Zeigt Fehler der ganzen Zeile
-  (lsp-ui-sideline-diagnostic-max-lines 3)   ; Begrenzt die Höhe am Rand
-  
-  ;; --- Peek (Definitionen im Overlay öffnen) ---
-  ;; Erlaubt es, Definitionen zu sehen, ohne die aktuelle Datei zu verlassen
-  (lsp-ui-peek-enable t)
-  (lsp-ui-peek-always-show t))
+  :config
+  (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))

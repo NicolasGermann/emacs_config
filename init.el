@@ -22,6 +22,8 @@
 
 (global-hl-line-mode t)
 
+(electric-pair-mode 1)
+
 (set-fringe-mode 0)
 
 (set-face-attribute 'mode-line nil :height 160)
@@ -33,13 +35,6 @@
 (setq inhibit-startup-screen t)    ; Begrüßung deaktivieren
 (setq initial-scratch-message ";;Willkommen") ; Scratch-Buffer komplett leeren
 
-(set-face-attribute 'line-number nil 
-                    :height 0.8    ; 80% der normalen Textgröße
-                    :slant 'normal)
-(set-face-attribute 'line-number-current-line nil 
-                    :height 1.0
-                    :weight 'bold)
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -47,16 +42,18 @@
 (use-package doom-themes
   :ensure t
   :config
-  ;;(load-theme 'doom-one t)
+  (load-theme 'doom-one t)
   ;; Korrekte Farben für die Modeline und andere Pakete aktivieren
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-(use-package base16-theme
-  :ensure t
-  :config
-  (load-theme 'base16-everforest t))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package base16-theme	        ;;
+;;   :ensure t			        ;;
+;;   :config			        ;;
+;;   (load-theme 'base16-everforest 0)) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package golden-ratio
   :ensure t
@@ -122,7 +119,7 @@
   :custom
   (corfu-cycle t)                ; Ermöglicht das Kreisen durch die Liste
   (corfu-auto t)                 ; Aktiviert automatische Vervollständigung beim Tippen
-  (corfu-auto-prefix 2)          ; Startet nach 2 getippten Zeichen
+  (corfu-auto-prefix 1)          ; Startet nach 2 getippten Zeichen
   (corfu-auto-delay 0.1)         ; Wie schnell das Popup erscheint
   (corfu-quit-at-boundary 'separator) ; Beendet Corfu bei Leerzeichen
   :init
@@ -208,6 +205,13 @@
   :ensure t
   :config
   (evil-collection-init))
+
+(set-face-attribute 'line-number nil 
+                    :height 0.8    ; 80% der normalen Textgröße
+                    :slant 'normal)
+(set-face-attribute 'line-number-current-line nil 
+                    :height 1.0
+                    :weight 'bold)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

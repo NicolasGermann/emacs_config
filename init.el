@@ -62,6 +62,19 @@
   :init
   (golden-ratio-mode 1))
 
+(defun my-balance-windows-and-disable-golden-ratio ()
+  "Balanciert die Fenster aus und schaltet den golden-ratio-mode aus."
+  (interactive)
+  ;; 1. Golden-Ratio ausschalten, falls er aktiv ist
+  (when (bound-and-true-p golden-ratio-mode)
+    (golden-ratio-mode -1))
+  ;; 2. Fenster ausbalancieren
+  (balance-windows))
+
+;; Die neue Funktion auf C-+ legen
+;; Hinweis: In manchen Terminals/Systemen ist C-+ eigentlich C-=
+(global-set-key (kbd "C-x +") #'my-balance-windows-and-disable-golden-ratio)
+
 (use-package moody
   :ensure t
   :config
@@ -199,3 +212,4 @@
   :init
   :config
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+

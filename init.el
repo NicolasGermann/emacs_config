@@ -24,7 +24,7 @@
 
 (electric-pair-mode 1)
 
-(set-fringe-mode 0)
+(set-fringe-mode 10)
 
 (set-face-attribute 'mode-line nil :height 160)
 
@@ -153,7 +153,8 @@
   (corfu-terminal-mode 1))
 
 (use-package eglot
-  :ensure nil
+  :ensure t
+  :pin gnu
   :bind
   (("C-x c" . eglot-code-actions)))
 
@@ -212,4 +213,8 @@
   :init
   :config
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+
+(use-package vc-fossil
+  :ensure t
+  :defer t)
 

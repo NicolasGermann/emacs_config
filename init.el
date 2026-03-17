@@ -208,13 +208,18 @@
                     :height 0.8
                     :weight 'bold)
 
-(use-package eldoc-box
-  :ensure t
-  :init
-  :config
-  (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
-
 (use-package vc-fossil
   :ensure t
   :defer t)
 
+(use-package eldoc-box
+  :ensure t
+  :defer t
+  :bind (("C-h C-." . eldoc-box-help-at-point))
+  :config
+  (setq eldoc-box-only-at-point t)
+  )
+
+(use-package vterm
+  :ensure t
+  :defer t)

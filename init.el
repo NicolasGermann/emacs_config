@@ -6,13 +6,15 @@
 (keymap-global-set "M-9" (lambda () (interactive) (insert "}")))
 (keymap-global-set "M-L" (lambda () (interactive) (insert "@")))
 (keymap-global-set "M-n" (lambda () (interactive) (insert "~")))
+(keymap-global-set "M-&" (lambda () (interactive) (insert "^")))
 
 (setq ns-command-modifier 'meta)
 
 (with-eval-after-load 'doc-view
   (setq doc-view-resolution 300))
 (add-hook 'doc-view-mode-hook (lambda () (display-line-numbers-mode -1)))
-
+(setq auto-save-default nil)
+(setq-default truncate-lines t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -223,3 +225,52 @@
 (use-package vterm
   :ensure t
   :defer t)
+
+(use-package evil
+  :ensure t
+  :defer t
+  :init
+  (setq evil-want-keybinding nil) ;; Wichtig für die Kompatibilität
+  :config
+  (define-key evil-insert-state-map (kbd "C-c C-c") 'evil-normal-state)
+  (define-key evil-visual-state-map (kbd "C-c C-c") 'evil-normal-state)
+  ;; Optional: Falls du C-c C-c auch im Minibuffer nutzen willst
+  (define-key evil-emacs-state-map (kbd "C-c C-c") 'evil-normal-state)
+  (evil-mode 0))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(use-package languagetool
+  :ensure nil
+  :config
+    (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8")
+        languagetool-server-command "~/.languagetool/languagetool-server.jar"
+        languagetool-console-command "~/.languagetool/languagetool-commandline.jar"))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("9777774c632c27aafcd20e969626f87177e3d3ff526badd4bec90b33ed3ab73b"
+     default))
+ '(package-selected-packages
+   '(all-the-icons avy base16-theme centaur-tabs corfu-terminal eglot
+		   eldoc-box eshell-vterm evil evil-collection general
+		   golden-ratio kind-icon languagetool magit
+		   marginalia minions moody orderless org-modern
+		   rust-mode vc-fossil vertico zig-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-document-title ((t (:height 1.7 :weight bold :underline t))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.5 :weight bold))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.3 :weight bold))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.1 :weight bold)))))

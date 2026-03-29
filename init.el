@@ -42,18 +42,6 @@
 
 (package-initialize)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package doom-themes					      ;;
-;;   :ensure t							      ;;
-;;   :config							      ;;
-;;   (load-theme 'doom-one t)					      ;;
-;;   ;; Korrekte Farben für die Modeline und andere Pakete aktivieren ;;
-;;   (doom-themes-visual-bell-config)				      ;;
-;;   (doom-themes-neotree-config)				      ;;
-;;   (doom-themes-org-config))					      ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 (use-package base16-theme	    
   :ensure t			    
   :config			    

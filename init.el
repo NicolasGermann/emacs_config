@@ -21,6 +21,7 @@
 (which-key-mode)
 
 (global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative)
 
 (global-hl-line-mode t)
 
@@ -28,8 +29,6 @@
 
 (set-fringe-mode 10)
 
-(set-face-attribute 'mode-line nil :height 50)
-(set-face-attribute 'mode-line-inactive nil :height 50)
 
 (setq-default line-spacing 0.12)
 
@@ -370,9 +369,10 @@
 (use-package echo-bar
   :ensure t
   :config
-  (setq echo-bar-format '((" %b %l " mode-line-front-space
+  (setq echo-bar-format '((" %+%@%b %l " mode-line-front-space
 			   (:propertize ("") display (min-width (1.0)))
 			   " " (vc-mode vc-mode) " " mode-line-misc-info" " )))
-  (setq mode-line-format '(" "))
-  (echo-bar-mode 1)
-  )
+  (setq-default mode-line-format '(" "))
+  (set-face-attribute 'mode-line nil :height 50)
+  (set-face-attribute 'mode-line-inactive nil :height 50)
+  (echo-bar-mode 1))

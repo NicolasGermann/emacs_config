@@ -28,7 +28,8 @@
 
 (set-fringe-mode 10)
 
-(set-face-attribute 'mode-line nil :height 160)
+(set-face-attribute 'mode-line nil :height 50)
+(set-face-attribute 'mode-line-inactive nil :height 50)
 
 (setq-default line-spacing 0.12)
 
@@ -65,20 +66,20 @@
 ;; Hinweis: In manchen Terminals/Systemen ist C-+ eigentlich C-=
 (global-set-key (kbd "C-x +") #'my-balance-windows-and-disable-golden-ratio)
 
-(use-package moody
-  :ensure t
-  :config
-  (setq x-underline-at-descent-line t)
-  (setq moody-mode-line-height 25)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-eldoc-minibuffer-message-function)
-  (moody-replace-vc-mode)
-  )
+;; (use-package moody
+;;   :ensure t
+;;   :config
+;;   (setq x-underline-at-descent-line t)
+;;   (setq moody-mode-line-height 25)
+;;   (moody-replace-mode-line-buffer-identification)
+;;   (moody-replace-eldoc-minibuffer-message-function)
+;;   (moody-replace-vc-mode)
+;;   )
 
-(use-package minions
-  :ensure t
-  :config
-  (minions-mode 1))
+;; (use-package minions
+;;   :ensure t
+;;   :config
+;;   (minions-mode 1))
 
 (use-package avy
   :ensure t
@@ -361,4 +362,17 @@
 
 (use-package meow
   :ensure t
-  :config (meow-setup))
+  :config
+  (meow-setup)
+  (meow-global-mode 1)
+  )
+
+(use-package echo-bar
+  :ensure t
+  :config
+  (setq echo-bar-format '((" %b %l " mode-line-front-space
+			   (:propertize ("") display (min-width (1.0)))
+			   " " (vc-mode vc-mode) " " mode-line-misc-info" " )))
+  (setq mode-line-format '(" "))
+  (echo-bar-mode 1)
+  )

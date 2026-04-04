@@ -369,7 +369,7 @@
 (use-package echo-bar
   :ensure t
   :config
-  (setq echo-bar-format '((" %+%@%b %l " mode-line-front-space
+  (setq echo-bar-format '((" %+%@%b |%l| " mode-line-front-space
 			   (:propertize ("") display (min-width (1.0)))
 			   " " (vc-mode vc-mode) " " mode-line-misc-info" " )))
   (setq-default mode-line-format '(" "))

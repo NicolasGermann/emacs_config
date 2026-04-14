@@ -145,6 +145,9 @@
 (use-package eglot
   :ensure t
   :pin gnu
+  :config
+  (setq eldoc-documentation-strategy #'eldoc-documentation-compose-effectively)
+  (setq eldoc-idle-delay 0)
   :bind
   (("C-x c" . eglot-code-actions)))
 
@@ -206,8 +209,6 @@
   :ensure t
   :defer t
   :bind (("C-h C-." . eldoc-box-help-at-point))
-  :config
-  (setq eldoc-box-only-at-point t)
   )
 
 (use-package vterm
@@ -245,6 +246,15 @@
     (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8")
         languagetool-server-command "~/.languagetool/languagetool-server.jar"
         languagetool-console-command "~/.languagetool/languagetool-commandline.jar"))
+
+(defun setup-languagetool ()
+  "Einrichten des Languagtools für de-DE"
+  (interactive)
+  (languagetool-set-language 'de-DE)
+  (languagetool-server-start)
+  (sit-for 3)
+  (languagetool-server-mode))
+
 
 (defun meow-setup ()
   (setq meow-cheatsheet-physical-layout meow-cheatsheet-physical-layout-iso)

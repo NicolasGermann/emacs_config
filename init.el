@@ -83,6 +83,8 @@
 (use-package avy
   :ensure t
   :bind ("C-ö" . avy-goto-word-1)
+  :config
+  (setq avy-all-windows 'all-frames)
   :custom-face
   (avy-lead-face ((t (:background unspecified :foreground "#ff0000" :weight bold :underline t))))
   (avy-lead-face-0 ((t (:background unspecified :foreground "#af00ff" :weight bold))))
@@ -150,6 +152,11 @@
   (setq eldoc-idle-delay 0)
   :bind
   (("C-x c" . eglot-code-actions)))
+
+(use-package mason
+  :ensure t
+  :init
+  (mason-setup))
 
 (use-package org
   :ensure nil
@@ -379,10 +386,29 @@
 (use-package echo-bar
   :ensure t
   :config
-  (setq echo-bar-format '((" %+%@%b |%l| " mode-line-front-space
+  (setq echo-bar-format '((" %+%@%b |%l| " mode-line-front-space
 			   (:propertize ("") display (min-width (1.0)))
-			   " " (vc-mode vc-mode) " " mode-line-misc-info" " )))
+			   "|/" (vc-mode vc-mode) " >" mode-line-misc-info"< " )))
   (setq-default mode-line-format '(" "))
   (set-face-attribute 'mode-line nil :height 50)
   (set-face-attribute 'mode-line-inactive nil :height 50)
   (echo-bar-mode 1))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(all-the-icons avy base16-theme centaur-tabs corfu-terminal echo-bar
+		   eglot eldoc-box embark eshell-vterm evil-collection
+		   evil-multiedit general golden-ratio kind-icon
+		   languagetool lsp-mode magit marginalia mason
+		   matlab-mode meow mini-modeline minions moody
+		   nano-agenda nano-modeline nano-theme orderless
+		   org-modern rust-mode vc-fossil vertico zig-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

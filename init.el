@@ -161,6 +161,9 @@
 (use-package org
   :ensure nil
   :config
+  (setq org-attach-auto-tag nil) ; manchmal stört das
+  (require 'org-attach)
+  (setq org-startup-with-inline-images t)
   (custom-set-faces
    '(org-level-1 ((t (:inherit outline-1 :height 1.5 :weight bold))))
    '(org-level-2 ((t (:inherit outline-2 :height 1.3 :weight bold))))
@@ -393,22 +396,3 @@
   (set-face-attribute 'mode-line nil :height 50)
   (set-face-attribute 'mode-line-inactive nil :height 50)
   (echo-bar-mode 1))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(all-the-icons avy base16-theme centaur-tabs corfu-terminal echo-bar
-		   eglot eldoc-box embark eshell-vterm evil-collection
-		   evil-multiedit general golden-ratio kind-icon
-		   languagetool lsp-mode magit marginalia mason
-		   matlab-mode meow mini-modeline minions moody
-		   nano-agenda nano-modeline nano-theme orderless
-		   org-modern rust-mode vc-fossil vertico zig-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

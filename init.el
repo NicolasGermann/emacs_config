@@ -148,6 +148,7 @@
   :ensure t
   :pin gnu
   :config
+  (add-hook 'eglot-managed-mode-hook #'flymake-mode-off)
   (setq eldoc-documentation-strategy #'eldoc-documentation-compose-effectively)
   (setq eldoc-idle-delay 0)
   :bind
@@ -178,6 +179,11 @@
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "◈" "◇" "⁖")))
+
+(use-package ox-typst
+  :ensure t
+  :defer t
+  :after org)
 
 (use-package magit
   :ensure t
@@ -396,3 +402,19 @@
   (set-face-attribute 'mode-line nil :height 50)
   (set-face-attribute 'mode-line-inactive nil :height 50)
   (echo-bar-mode 1))
+
+(use-package go-mode
+  :ensure nil
+  :defer t
+  :config
+  (add-to-list 'exec-path (expand-file-name "~/go/bin")))
+
+
+(use-package flycheck
+  :ensure t)
+
+(use-package flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode 1))

@@ -98,6 +98,7 @@
   :ensure t
   :custom
   (completion-styles '(orderless basic))
+  (orderless-matching-styles '(orderless-literal orderless-flex))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
@@ -347,6 +348,9 @@
   :config
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (setq lsp-completion-provider :none)
+  (setq completion-category-defaults nil
+      completion-category-overrides '((eglot (styles orderless basic))
+                                       (lsp-capf (styles orderless basic))))
   )
 
 (use-package lsp-ui

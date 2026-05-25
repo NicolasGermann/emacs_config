@@ -65,21 +65,6 @@
 ;; Hinweis: In manchen Terminals/Systemen ist C-+ eigentlich C-=
 (global-set-key (kbd "C-x +") #'my-balance-windows-and-disable-golden-ratio)
 
-;; (use-package moody
-;;   :ensure t
-;;   :config
-;;   (setq x-underline-at-descent-line t)
-;;   (setq moody-mode-line-height 25)
-;;   (moody-replace-mode-line-buffer-identification)
-;;   (moody-replace-eldoc-minibuffer-message-function)
-;;   (moody-replace-vc-mode)
-;;   )
-
-;; (use-package minions
-;;   :ensure t
-;;   :config
-;;   (minions-mode 1))
-
 (use-package avy
   :ensure t
   :bind ("C-ö" . avy-goto-word-1)
@@ -154,11 +139,6 @@
   :bind
   (("C-x c" . eglot-code-actions)))
 
-(use-package mason
-  :ensure t
-  :init
-  (mason-setup))
-
 (use-package org
   :ensure nil
   :config
@@ -221,43 +201,12 @@
   :ensure t
   :defer t)
 
-(use-package eldoc-box
-  :ensure t
-  :defer t
-  :bind (("C-h C-." . eldoc-box-help-at-point))
-  )
-
 (use-package vterm
   :ensure t
   :defer t)
 
-(use-package evil
-  :ensure t
-  :defer t
-  :init
-  (setq evil-want-keybinding nil) ;; Wichtig für die Kompatibilität
-  :config
-  (define-key evil-insert-state-map (kbd "C-c C-c") 'evil-normal-state)
-  (define-key evil-visual-state-map (kbd "C-c C-c") 'evil-normal-state)
-  ;; Optional: Falls du C-c C-c auch im Minibuffer nutzen willst
-  (define-key evil-emacs-state-map (kbd "C-c C-c") 'evil-normal-state)
-  (evil-mode 0))
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
-
-(use-package evil-multiedit
-  :ensure t
-  :defer t
-  :after evil
-  :config
-  (evil-multiedit-default-keybinds))
-
 (use-package languagetool
-  :ensure nil
+  :ensure t
   :config
     (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8")
         languagetool-server-command "~/.languagetool/languagetool-server.jar"
@@ -392,16 +341,32 @@
   (meow-global-mode 1)
   )
 
-(use-package echo-bar
+(use-package lsp-mode
   :ensure t
+  :init
   :config
-  (setq echo-bar-format '((" %+%@%b |%l| " mode-line-front-space
-			   (:propertize ("") display (min-width (1.0)))
-			   "|/" (vc-mode vc-mode) " >" mode-line-misc-info"< " )))
-  (setq-default mode-line-format '(" "))
-  (set-face-attribute 'mode-line nil :height 50)
-  (set-face-attribute 'mode-line-inactive nil :height 50)
-  (echo-bar-mode 1))
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+  (setq lsp-completion-provider :none)
+  )
+
+(use-package lsp-ui
+  :ensure t
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  ;; --- DOKUMENTATION (Hover-Popup) ---
+  (setq lsp-ui-doc-enable t             ;; Aktiviert das Info-Fenster beim Hovern
+        lsp-ui-doc-delay 1.5            ;; Zeigt das Fenster nach 0.5 Sekunden an
+	lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-position 'at-point))
+
+(use-package mood-line
+  :ensure t
+  ;; Enable mood-line
+  :config
+  (mood-line-mode)
+  ;; Use pretty Fira Code-compatible glyphs
+  :custom
+  (mood-line-glyph-alist mood-line-glyphs-fira-code))
 
 (use-package go-mode
   :ensure nil
@@ -409,12 +374,5 @@
   :config
   (add-to-list 'exec-path (expand-file-name "~/go/bin")))
 
-
 (use-package flycheck
   :ensure t)
-
-(use-package flycheck-eglot
-  :ensure t
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))

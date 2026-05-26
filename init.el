@@ -345,12 +345,15 @@
 (use-package lsp-mode
   :ensure t
   :init
-  :config
+  (setq lsp-keymap-prefix "C-c l")
+    :config
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
   (setq lsp-completion-provider :none)
   (setq completion-category-defaults nil
       completion-category-overrides '((eglot (styles orderless basic))
-                                       (lsp-capf (styles orderless basic))))
+                                      (lsp-capf (styles orderless basic))))
+  (setq lsp-eldoc-render-all t)
+  (setq eldoc-echo-area-use-multiline-p nil)
   )
 
 (use-package lsp-ui
@@ -380,3 +383,20 @@
 
 (use-package flycheck
   :ensure t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(all-the-icons avy base16-theme corfu-terminal flycheck go-mode
+		   golden-ratio kind-icon languagetool lsp-ui magit
+		   marginalia meow mood-line ocodo-svg-modelines
+		   orderless org-modern ox-typst rust-mode vc-fossil
+		   vertico vterm zig-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
